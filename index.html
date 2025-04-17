@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title id="page-title">Dijital Dönüşüm: Yapay Zekâ, Din ve İletişim</title>
+  <meta name="title-tr" content="Dijital Dönüşüm: Yapay Zekâ, Din ve İletişim">
+  <meta name="title-en" content="Digital Transformation: AI, Religion & Communication">
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;700&family=Montserrat:wght@300;400&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --clr-primary: #1f2a44;
+      --clr-accent: #d4af37;
+      --clr-bg: #f5f5f5;
+      --clr-card: #ffffff;
+      --clr-text: #333333;
+      --ff-heading: 'Lora', serif;
+      --ff-body: 'Montserrat', sans-serif;
+      --transition: 0.3s ease;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: var(--ff-body);
+      color: var(--clr-text);
+      background: var(--clr-bg);
+      line-height: 1.6;
+    }
+    a { text-decoration: none; color: inherit; }
+
+    /* Header */
+    header {
+      position: fixed; top: 0; left: 0; width: 100%;
+      padding: 0.75rem 1rem;
+      background: rgba(255,255,255,0.85);
+      backdrop-filter: blur(10px);
+      display: flex; align-items: center; justify-content: space-between;
+      z-index: 1000;
+    }
+    .logo {
+      font-family: var(--ff-heading);
+      font-size: 1.5rem;
+      color: var(--clr-primary);
+    }
+    .lang-select {
+      display: flex; gap: 0.5rem; margin-left: 1rem;
+    }
+    .lang-toggle {
+      background: none; border: none; font-weight: 500;
+      cursor: pointer; color: var(--clr-text);
+      transition: color var(--transition);
+    }
+    .lang-toggle.active, .lang-toggle:hover {
+      color: var(--clr-accent);
+    }
+    .nav-toggle {
+      display: none; flex-direction: column; justify-content: space-between;
+      width: 32px; height: 24px; background: none; border: none;
+      cursor: pointer; padding: 4px;
+      position: absolute; top: 8px; right: 8px;
+    }
+    .nav-toggle .hamburger {
+      width: 100%; height: 4px; background: var(--clr-primary);
+      border-radius: 2px; transition: background var(--transition);
+    }
+    nav ul.nav-links {
+      display: flex; gap: 1.5rem; list-style: none;
+    }
+    nav ul.nav-links.open {
+      display: flex; flex-direction: column; background: var(--clr-card);
+      position: absolute; top: 100%; left: 0; width: 100%;
+      padding: 1rem 2rem; box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+    }
+    nav ul.nav-links li a {
+      position: relative; font-weight: 500;
+      transition: color var(--transition);
+    }
+    nav ul.nav-links li a::after {
+      content: ''; position: absolute; left: 0; bottom: -4px;
+      width: 0; height: 2px; background: var(--clr-accent);
+      transition: width var(--transition);
+    }
+    nav ul.nav-links li a:hover::after {
+      width: 100%;
+    }
+
+    /* Hero */
+    .hero {
+      margin-top: 60px;
+      height: calc(100vh - 60px);
+      background:
+        linear-gradient(to bottom, rgba(31,42,68,0.7), rgba(31,42,68,0.7)),
+        url('https://source.unsplash.com/1600x900/?technology,abstract') center/cover no-repeat;
+      display: flex; flex-direction: column;
+      justify-content: center; align-items: center;
+      text-align: center; color: #fff; padding: 0 1rem;
+    }
+    .hero h1 {
+      font-family: var(--ff-heading);
+      font-size: 3rem;
+      margin-bottom: 1rem;
+    }
+    .hero p {
+      font-size: 1.1rem;
+      max-width: 600px;
+    }
+
+    /* Sections */
+    section {
+      padding: 6rem 2rem 4rem;
+      max-width: 1000px; margin: 0 auto;
+    }
+    section h2 {
+      font-family: var(--ff-heading);
+      font-size: 2.2rem;
+      color: var(--clr-primary);
+      text-align: center;
+      margin-bottom: 1.5rem;
+      position: relative;
+    }
+    section h2::after {
+      content: ''; width: 80px; height: 3px;
+      background: var(--clr-accent);
+      position: absolute; left: 50%; bottom: -10px;
+      transform: translateX(-50%);
+    }
+    section p {
+      max-width: 800px; margin: 0 auto 1rem; text-align: justify;
+    }
+
+    /* Timeline */
+    .timeline {
+      display: grid; grid-template-columns: 1fr; gap: 1.5rem;
+    }
+    .timeline-item {
+      background: var(--clr-card); padding: 1.5rem;
+      border-left: 4px solid var(--clr-accent);
+      box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+      transition: transform var(--transition);
+    }
+    .timeline-item:hover { transform: translateY(-5px); }
+    .timeline-item h3 {
+      color: var(--clr-accent); font-size: 1.1rem; margin-bottom: 0.5rem;
+    }
+    .timeline-item p { font-size: 0.95rem; }
+
+    /* Panels */
+    .panels {
+      display: grid; grid-template-columns: 1fr; gap: 2rem; margin-top: 2rem;
+    }
+    .panel-card {
+      background: var(--clr-card); padding: 2rem; border-radius: 8px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+      transition: transform var(--transition);
+    }
+    .panel-card:hover { transform: translateY(-5px); }
+    .panel-card h3 {
+      font-family: var(--ff-heading); font-size: 1.3rem;
+      color: var(--clr-primary); margin-bottom: 0.75rem;
+    }
+    .panel-card ul { list-style: disc inside; line-height: 1.4; }
+
+    /* Footer */
+    footer {
+      text-align: center; background: var(--clr-bg);
+      color: var(--clr-text); padding: 2rem 1rem 1rem;
+      font-size: 0.9rem; line-height: 1.4;
+    }
+    footer .uni { font-weight: bold; margin-bottom: 0.5rem; }
+
+    /* Responsive */
+    @media (min-width: 600px) {
+      .timeline { grid-template-columns: 1fr 1fr; }
+      .panels { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 768px) {
+      nav ul.nav-links { display: none; }
+      .nav-toggle { display: flex; }
+      .hero { margin-top: 48px; height: calc(100vh - 48px); }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="logo">
+      <span data-lang="tr">YZ &amp; Din Çalıştayı</span>
+      <span data-lang="en">AI & Religion Workshop</span>
+    </div>
+    <div class="lang-select">
+      <button class="lang-toggle active" data-lang-select="tr">TR</button>
+      <button class="lang-toggle" data-lang-select="en">EN</button>
+    </div>
+    <button class="nav-toggle" aria-label="Toggle menu">
+      <span class="hamburger"></span>
+      <span class="hamburger"></span>
+      <span class="hamburger"></span>
+    </button>
+    <nav>
+      <ul class="nav-links">
+        <li><a href="#about"><span data-lang="tr">Hakkında</span><span data-lang="en">About</span></a></li>
+        <li><a href="#program"><span data-lang="tr">Gün Akışı</span><span data-lang="en">Schedule</span></a></li>
+        <li><a href="#panels"><span data-lang="tr">Paneller & Konuşmacılar</span><span data-lang="en">Panels & Speakers</span></a></li>
+        <li><a href="#contact"><span data-lang="tr">İletişim</span><span data-lang="en">Contact</span></a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <div class="hero">
+    <h1>
+      <span data-lang="tr">Dijital Dönüşüm: Yapay Zekâ, Din ve İletişim</span>
+      <span data-lang="en">Digital Transformation: AI, Religion & Communication</span>
+    </h1>
+    <p>
+      <span data-lang="tr">2 Mayıs 2025 | Çukurova Üniversitesi</span>
+      <span data-lang="en">May 2, 2025 | Çukurova University</span>
+    </p>
+  </div>
+
+  <section id="about">
+    <h2><span data-lang="tr">Hakkında</span><span data-lang="en">About</span></h2>
+    <p>
+      <span data-lang="tr">Viyana Üniversitesi, Friedrich-Alexander Erlangen-Nürnberg, Karlsruhe Üniversitesi, Hatay Mustafa Kemal Üniversitesi ve Çukurova Üniversitesi iş birliğiyle düzenlenen bu çalıştay, yapay zekânın din, iletişim ve etik bağlamındaki dönüşüm gücünü disiplinlerarası bir perspektifle ele almayı amaçlamaktadır.</span>
+      <span data-lang="en">Organized by University of Vienna, FAU Erlangen-Nürnberg, Karlsruhe Institute, Hatay Mustafa Kemal University & Çukurova University, this workshop examines AI’s transformative power in religion, communication & ethics from an interdisciplinary perspective.</span>
+    </p>
+    <p>
+      <strong><span data-lang="tr">Koordinasyon:</span><span data-lang="en">Coordinator:</span></strong>
+      <span data-lang="tr">Dr. Aysun Yaşar</span><span data-lang="en">Dr. Aysun Yaşar</span> |
+      <strong><span data-lang="tr">E-posta:</span><span data-lang="en">Email:</span></strong>
+      <a href="mailto:aysun.yasar@univie.ac.at">aysun.yasar@univie.ac.at</a>
+    </p>
+  </section>
+
+  <section id="program">
+    <h2><span data-lang="tr">Gün Akışı</span><span data-lang="en">Schedule</span></h2>
+    <div class="timeline">
+      <div class="timeline-item">
+        <h3>09:00–09:05</h3>
+        <p>
+          <span data-lang="tr">Çalıştaya Hoş Geldiniz / Selamlama – Prof. Dr. Hamit Emrah Beriş</span>
+          <span data-lang="en">Welcome & Opening – Prof. Dr. Hamit Emrah Beriş</span>
+        </p>
+      </div>
+      <div class="timeline-item">
+        <h3>09:05–10:30</h3>
+        <p>
+          <span data-lang="tr">Panel 1: Yapay Zekâ ve Din</span>
+          <span data-lang="en">Panel 1: AI & Religion</span>
+        </p>
+      </div>
+      <div class="timeline-item">
+        <h3>10:30–10:45</h3>
+        <p>
+          <span data-lang="tr">Mola</span>
+          <span data-lang="en">Coffee Break</span>
+        </p>
+      </div>
+      <div class="timeline-item">
+        <h3>10:45–12:15</h3>
+        <p>
+          <span data-lang="tr">Panel 2: Yapay Zekâ, Din ve İletişim</span>
+          <span data-lang="en">Panel 2: AI, Religion & Communication</span>
+        </p>
+      </div>
+      <div class="timeline-item">
+        <h3>12:15–13:30</h3>
+        <p>
+          <span data-lang="tr">Öğle Molası</span>
+          <span data-lang="en">Lunch Break</span>
+        </p>
+      </div>
+      <div class="timeline-item">
+        <h3>13:30–14:30</h3>
+        <p>
+          <span data-lang="tr">Panel 3: Yapay Zekâ ve Toplumda Din</span>
+          <span data-lang="en">Panel 3: AI & Society</span>
+        </p>
+      </div>
+      <div class="timeline-item">
+        <h3>14:30–14:45</h3>
+        <p>
+          <span data-lang="tr">Mola</span>
+          <span data-lang="en">Break</span>
+        </p>
+      </div>
+      <div class="timeline-item">
+        <h3>14:45–16:15</h3>
+        <p>
+          <span data-lang="tr">Panel 4: Yapay Zekâ ve Toplumda İletişim</span>
+          <span data-lang="en">Panel 4: AI & Communication</span>
+        </p>
+      </div>
+      <div class="timeline-item">
+        <h3>16:30–17:30</h3>
+        <p>
+          <span data-lang="tr">Final Değerlendirme</span>
+          <span data-lang="en">Final Discussion</span>
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section id="panels">
+    <h2><span data-lang="tr">Paneller & Konuşmacılar</span><span data-lang="en">Panels & Speakers</span></h2>
+    <div class="panels">
+      <!-- Panel 1 -->
+      <div class="panel-card">
+        <h3>
+          <span data-lang="tr">Panel 1: Yapay Zekâ ve Din</span>
+          <span data-lang="en">Panel 1: AI & Religion</span>
+        </h3>
+        <ul>
+          <li><span data-lang="tr">Prof. Dr. Muhammet Özdemir – YZ Din ve Felsefe</span><span data-lang="en">Prof. Dr. Muhammet Özdemir – AI & Philosophy of Religion</span></li>
+          <li><span data-lang="tr">Doç. Dr. Talip Demir – YZ Transhümanizm ve Din</span><span data-lang="en">Assoc. Prof. Dr. Talip Demir – AI Transhumanism & Religion</span></li>
+          <li><span data-lang="tr">Bilal Düzbayır – YZ ve Dini Pratikler</span><span data-lang="en">Bilal Düzbayır – AI & Religious Practices</span></li>
+          <li><em><span data-lang="tr">Moderatör:</span><span data-lang="en">Moderator:</span></em>
+              <span data-lang="tr">Prof. Dr. M. Ali Kirman</span><span data-lang="en">Prof. Dr. M. Ali Kirman</span>
+          </li>
+        </ul>
+      </div>
+      <!-- Panel 2 -->
+      <div class="panel-card">
+        <h3>
+          <span data-lang="tr">Panel 2: Yapay Zekâ, Din ve İletişim</span>
+          <span data-lang="en">Panel 2: AI, Religion & Communication</span>
+        </h3>
+        <ul>
+          <li><span data-lang="tr">Dr. Şenol Yağdı – Din Eğitimi’nde YZ</span><span data-lang="en">Dr. Şenol Yağdı – AI in Religious Education</span></li>
+          <li><span data-lang="tr">Prof. Dr. Ulvi Karagedik – Sosyal Medya ve YZ Kullanımı</span><span data-lang="en">Prof. Dr. Ulvi Karagedik – Social Media & AI Applications</span></li>
+          <li><span data-lang="tr">Tülay Atay &amp; Dr. Aysun Yaşar – YZ’a Dinlerin Reaksiyonu</span><span data-lang="en">Tülay Atay &amp; Dr. Aysun Yaşar – Religious Responses to AI</span></li>
+          <li><em><span data-lang="tr">Moderatör:</span><span data-lang="en">Moderator:</span></em>
+              <span data-lang="tr">(TBD)</span><span data-lang="en">(TBD)</span>
+          </li>
+        </ul>
+      </div>
+      <!-- Panel 3 -->
+      <div class="panel-card">
+        <h3>
+          <span data-lang="tr">Panel 3: Yapay Zekâ ve Toplumda Din</span>
+          <span data-lang="en">Panel 3: AI & Society</span>
+        </h3>
+        <ul>
+          <li><span data-lang="tr">Dr. Harun Tunç – YZ ve Toplumsal Cinsiyet</span><span data-lang="en">Dr. Harun Tunç – AI & Gender Studies</span></li>
+          <li><span data-lang="tr">Dr. Hasan Sarı – Dini Grupların Dijitalleşme Sürecinde YZ</span><span data-lang="en">Dr. Hasan Sarı – AI in Digitization of Religious Groups</span></li>
+          <li><span data-lang="tr">Dr. Ali Aksaç – YZ: Yeni Dini Alanın Sosyolojisi</span><span data-lang="en">Dr. Ali Aksaç – AI: Sociology of New Religious Field</span></li>
+          <li><em><span data-lang="tr">Moderatör:</span><span data-lang="en">Moderator:</span></em>
+              <span data-lang="tr">Prof. Dr. Muhammet Özdemir</span><span data-lang="en">Prof. Dr. Muhammet Özdemir</span>
+          </li>
+        </ul>
+      </div>
+      <!-- Panel 4 -->
+      <div class="panel-card">
+        <h3>
+          <span data-lang="tr">Panel 4: Yapay Zekâ ve Toplumda İletişim</span>
+          <span data-lang="en">Panel 4: AI & Communication</span>
+        </h3>
+        <ul>
+          <li><span data-lang="tr">Doç. Dr. Sevda Ünal</span><span data-lang="en">Assoc. Prof. Dr. Sevda Ünal</span></li>
+          <li><span data-lang="tr">Doç. Dr. Serkan Bulut</span><span data-lang="en">Assoc. Prof. Dr. Serkan Bulut</span></li>
+          <li><span data-lang="tr">Doç. Dr. Kenan Ayeşgöz</span><span data-lang="en">Assoc. Prof. Dr. Kenan Ayeşgöz</span></li>
+          <li><em><span data-lang="tr">Moderatör:</span><span data-lang="en">Moderator:</span></em>
+              <span data-lang="tr">Prof. Dr. İlker Özdemir</span><span data-lang="en">Prof. Dr. İlker Özdemir</span>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact">
+    <h2><span data-lang="tr">İletişim</span><span data-lang="en">Contact</span></h2>
+    <p>
+      <span data-lang="tr">E‑posta:</span><span data-lang="en">Email:</span>
+      <a href="mailto:info@yzdiniletisim.com">info@yzdiniletisim.com</a>
+    </p>
+  </section>
+
+  <footer>
+    <div class="uni">
+      <span data-lang="tr">ÇUKUROVA ÜNİVERSİTESİ</span>
+      <span data-lang="en">ÇUKUROVA UNIVERSITY</span>
+    </div>
+    <div>
+      <span data-lang="tr">© Tüm hakları saklıdır. © 2025 | Designed by Ali AKSAÇ</span>
+      <span data-lang="en">© All rights reserved. © 2025 | Designed by Ali AKSAÇ</span>
+    </div>
+  </footer>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const langButtons = document.querySelectorAll('.lang-toggle');
+      const contentElems = document.querySelectorAll('[data-lang]');
+      const pageTitleEl = document.getElementById('page-title');
+      const titleTr = document.querySelector('meta[name="title-tr"]').content;
+      const titleEn = document.querySelector('meta[name="title-en"]').content;
+
+      function setLanguage(lang) {
+        contentElems.forEach(el => {
+          el.style.display = el.getAttribute('data-lang') === lang ? '' : 'none';
+        });
+        langButtons.forEach(btn => {
+          btn.classList.toggle('active', btn.dataset.langSelect === lang);
+        });
+        pageTitleEl.textContent = (lang === 'tr' ? titleTr : titleEn);
+      }
+
+      langButtons.forEach(btn => {
+        btn.addEventListener('click', () => setLanguage(btn.dataset.langSelect));
+      });
+
+      // Varsayılan dil
+      setLanguage('tr');
+
+      // Mobil menü toggle
+      const navToggle = document.querySelector('.nav-toggle');
+      const navLinks = document.querySelector('.nav-links');
+      navToggle.addEventListener('click', () => {
+        navLinks.classList.toggle('open');
+      });
+    });
+  </script>
+</body>
+</html>

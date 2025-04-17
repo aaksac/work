@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dijital Dönüşüm: Yapay Zekâ, Din ve İletişimin Yeni Ufukları</title>
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&family=Playfair+Display:wght@700&display=swap" rel="stylesheet" />
+  <style>
+    /* Global */
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Poppins', sans-serif;
+      line-height: 1.6;
+      color: #333;
+      background: #f7fafc;
+    }
+    a { text-decoration: none; color: inherit; }
+    img { max-width: 100%; display: block; }
+
+    /* Variables */
+    :root {
+      --clr-primary: #667eea;
+      --clr-accent: #764ba2;
+      --clr-bg-light: #f7fafc;
+      --clr-bg-alt: #edf2f7;
+      --clr-text-dark: #2d3748;
+      --clr-text-light: #ffffff;
+      --ff-heading: 'Playfair Display', serif;
+      --ff-body: 'Poppins', sans-serif;
+      --transition: 0.3s ease;
+    }
+
+    /* Navbar */
+    .navbar {
+      position: sticky;
+      top: 0;
+      background: #fff;
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      z-index: 100;
+    }
+    .logo {
+      font-family: var(--ff-heading);
+      font-size: 1.5rem;
+      color: var(--clr-primary);
+    }
+    .nav-links {
+      list-style: none;
+      display: flex;
+      gap: 1.5rem;
+    }
+    .nav-links a {
+      position: relative;
+      font-weight: 600;
+      color: var(--clr-text-dark);
+      transition: color var(--transition);
+    }
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      left: 0; bottom: -4px;
+      width: 0; height: 2px;
+      background: var(--clr-primary);
+      transition: width var(--transition);
+    }
+    .nav-links a:hover {
+      color: var(--clr-primary);
+    }
+    .nav-links a:hover::after {
+      width: 100%;
+    }
+
+    /* Hero */
+    .hero {
+      position: relative;
+      height: 80vh;
+      background: linear-gradient(135deg, rgba(102,126,234,0.85), rgba(118,75,162,0.85)), url('hero-bg.jpg') center/cover no-repeat;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 0 1rem;
+      color: var(--clr-text-light);
+    }
+    .hero h1 {
+      font-family: var(--ff-heading);
+      font-size: 2.8rem;
+      margin-bottom: 0.5rem;
+      line-height: 1.2;
+    }
+    .hero p {
+      font-size: 1.1rem;
+      max-width: 600px;
+      margin-bottom: 1.5rem;
+    }
+    .hero .btn {
+      display: inline-block;
+      background: var(--clr-text-light);
+      color: var(--clr-primary);
+      padding: 0.75rem 2rem;
+      font-weight: 600;
+      border-radius: 50px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+      transition: transform var(--transition), box-shadow var(--transition);
+    }
+    .hero .btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+    }
+
+    /* Sections */
+    section {
+      padding: 4rem 2rem;
+      max-width: 1000px;
+      margin: 0 auto;
+      background: var(--clr-bg-light);
+      border-radius: 8px;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.05);
+      margin-bottom: 2rem;
+      overflow: hidden;
+    }
+    section:nth-of-type(even) {
+      background: var(--clr-bg-alt);
+    }
+    section h2 {
+      font-family: var(--ff-heading);
+      font-size: 2.2rem;
+      color: var(--clr-primary);
+      text-align: center;
+      margin-bottom: 1rem;
+    }
+    section p {
+      color: var(--clr-text-dark);
+      font-size: 1rem;
+      text-align: justify;
+      margin-bottom: 1rem;
+    }
+
+    /* Timeline */
+    .timeline {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1rem;
+    }
+    .timeline-item {
+      background: #fff;
+      padding: 1rem 1.5rem;
+      border-left: 4px solid var(--clr-accent);
+      position: relative;
+      transition: transform var(--transition), box-shadow var(--transition);
+    }
+    .timeline-item:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+    }
+    .timeline-item h3 {
+      color: var(--clr-accent);
+      font-weight: 600;
+      margin-bottom: 0.25rem;
+    }
+    .timeline-item p {
+      font-size: 0.95rem;
+    }
+
+    /* Panels */
+    .panel {
+      background: #fff;
+      padding: 1.5rem;
+      border-radius: 6px;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.05);
+      margin-bottom: 1.5rem;
+      transition: transform var(--transition), box-shadow var(--transition);
+    }
+    .panel:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+    }
+    .panel h3 {
+      font-family: var(--ff-heading);
+      font-size: 1.4rem;
+      color: var(--clr-primary);
+      margin-bottom: 0.5rem;
+    }
+    .panel ul {
+      list-style: disc inside;
+      color: var(--clr-text-dark);
+      font-size: 0.95rem;
+    }
+    .panel ul li + li { margin-top: 0.4rem; }
+
+    /* Contact */
+    #contact p {
+      text-align: center;
+      font-size: 1rem;
+    }
+
+    /* Footer */
+    footer {
+      text-align: center;
+      padding: 2rem 1rem;
+      background: #2d3748;
+      color: #a0aec0;
+      font-size: 0.9rem;
+    }
+
+    /* Responsive */
+    @media (min-width: 600px) {
+      .timeline { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 768px) {
+      .nav-links { display: none; /* hamburger can be added here */ }
+      .hero h1 { font-size: 2.2rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAVBAR -->
+  <header>
+    <nav class="navbar">
+      <div class="logo">YZ & Din Çalıştayı</div>
+      <ul class="nav-links">
+        <li><a href="#about">Hakkında</a></li>
+        <li><a href="#program">Program</a></li>
+        <li><a href="#panels">Paneller</a></li>
+        <li><a href="#contact">İletişim</a></li>
+      </ul>
+    </nav>
+
+    <!-- HERO -->
+    <div class="hero">
+      <h1>Dijital Dönüşüm: Yapay Zekâ, Din ve İletişimin Yeni Ufukları</h1>
+      <p>Uluslararası hibrit çalıştayımıza, 2 Mayıs 2025 Cuma günü Çukurova Üniversitesi'nde sizleri bekliyoruz.</p>
+    </div>
+  </header>
+
+  <!-- HAKKINDA -->
+  <section id="about">
+    <h2>Hakkında</h2>
+    <p>
+      Viyana Üniversitesi, Friedrich-Alexander Erlangen-Nürnberg, Karlsruhe Üniversitesi,
+      Hatay Mustafa Kemal Üniversitesi ve Çukurova Üniversitesi iş birliğiyle düzenlenen bu
+      çalıştay, yapay zekânın din, iletişim ve etik bağlamındaki dönüşüm gücünü disiplinlerarası
+      bir perspektifle ele almayı amaçlamaktadır.
+    </p>
+    <p>
+      <strong>Koordinasyon:</strong> Dr. Aysun Yaşar<br/>
+      <strong>İletişim:</strong> aysun.yasar@univie.ac.at
+    </p>
+  </section>
+
+  <!-- PROGRAM -->
+  <section id="program">
+    <h2>Gün Akışı</h2>
+    <div class="timeline">
+      <div class="timeline-item">
+        <h3>09:00 – 09:05</h3>
+        <p>Çalıştaya Hoş Geldiniz / Selamlama – Prof. Dr. Hamit Emrah Beriş</p>
+      </div>
+      <div class="timeline-item">
+        <h3>09:05 – 10:30</h3>
+        <p>Panel 1: Yapay Zekâ ve Din</p>
+      </div>
+      <div class="timeline-item">
+        <h3>10:30 – 10:45</h3>
+        <p>Mola</p>
+      </div>
+      <div class="timeline-item">
+        <h3>10:45 – 12:15</h3>
+        <p>Panel 2: Yapay Zekâ, Din ve İletişim</p>
+      </div>
+      <div class="timeline-item">
+        <h3>12:15 – 13:30</h3>
+        <p>Öğle Molası</p>
+      </div>
+      <div class="timeline-item">
+        <h3>13:30 – 14:30</h3>
+        <p>Panel 3: Yapay Zekâ ve Toplumda Din</p>
+      </div>
+      <div class="timeline-item">
+        <h3>14:30 – 14:45</h3>
+        <p>Mola</p>
+      </div>
+      <div class="timeline-item">
+        <h3>14:45 – 16:15</h3>
+        <p>Panel 4: Yapay Zekâ ve Toplumda İletişim</p>
+      </div>
+      <div class="timeline-item">
+        <h3>16:30 – 17:30</h3>
+        <p>Final Değerlendirme</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- PANELLER -->
+  <section id="panels">
+    <h2>Paneller ve Konuşmacılar</h2>
+
+    <div class="panel">
+      <h3>Panel 1: Yapay Zekâ ve Din</h3>
+      <ul>
+        <li>Prof. Dr. Muhammet Özdemir – YZ Din ve Felsefe</li>
+        <li>Doç. Dr. Talip Demir – YZ Transhümanizm ve Din</li>
+        <li>Bilal Düzbayır – YZ ve Dini Pratikler</li>
+        <li><em>Moderatör:</em> Prof. Dr. M. Ali Kirman</li>
+      </ul>
+    </div>
+
+    <div class="panel">
+      <h3>Panel 2: Yapay Zekâ, Din ve İletişim</h3>
+      <ul>
+        <li>Dr. Şenol Yağdı – Din Eğitimi’nde YZ</li>
+        <li>Prof. Dr. Ulvi Karagedik – Sosyal Medya ve YZ Kullanımı</li>
+        <li>Tülay Atay &amp; Dr. Aysun Yaşar – YZ’a Dinlerin Reaksiyonu</li>
+        <li><em>Moderatör:</em> (TBD)</li>
+      </ul>
+    </div>
+
+    <div class="panel">
+      <h3>Panel 3: Yapay Zekâ ve Toplumda Din</h3>
+      <ul>
+        <li>Dr. Harun Tunç – YZ ve Toplumsal Cinsiyet</li>
+        <li>Dr. Hasan Sarı – Dini Grupların Dijitalleşme Sürecinde YZ</li>
+        <li>Dr. Ali Aksaç – YZ: Yeni Dini Alanın Sosyolojisi</li>
+        <li><em>Moderatör:</em> Prof. Dr. Muhammet Özdemir</li>
+      </ul>
+    </div>
+
+    <div class="panel">
+      <h3>Panel 4: Yapay Zekâ ve Toplumda İletişim</h3>
+      <ul>
+        <li>Doç. Dr. Sevda Ünal</li>
+        <li>Doç. Dr. Serkan Bulut</li>
+        <li>Doç. Dr. Kenan Ayeşgöz</li>
+        <li><em>Moderatör:</em> Prof. Dr. İlker Özdemir</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- İLETİŞİM -->
+  <section id="contact">
+    <h2>İletişim</h2>
+    <p>Email: <a href="mailto:info@yzdiniletisim.com">info@yzdiniletisim.com</a></p>
+    <p>Koordinatör: <a href="mailto:aysun.yasar@univie.ac.at">Dr. Aysun Yaşar</a></p>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    &copy; 2025 “Dijital Dönüşüm: Yapay Zekâ, Din ve İletişimin Yeni Ufukları” &middot; Çukurova Üniversitesi
+  </footer>
+</body>
+</html>
